@@ -1,0 +1,20 @@
+version: '2'
+services:
+    samplegateway-app:
+        image: samplegateway
+        environment:
+            - SPRING_PROFILES_ACTIVE=prod,swagger
+            - SPRING_DATA_MONGODB_URI=mongodb://samplegateway-mongodb:27017
+            - SPRING_DATA_MONGODB_DATABASE=SampleGateway
+            - JHIPSTER_SLEEP=10 # gives time for the database to boot before the application
+            - SPRING_DATA_ELASTICSEARCH_CLUSTER_NODES=samplegateway-elasticsearch:9300
+        ports:
+            - 8080:8080
+    samplegateway-mongodb:
+        extends:
+            file: mongodb.yml
+            service: samplegateway-mongodb
+    samplegateway-elasticsearch:
+        extends:
+            file: elasticsearch.yml
+            service: samplegateway-elasticsearch
